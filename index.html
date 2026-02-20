@@ -2,189 +2,156 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Syrniki Production Dashboard</title>
+    <title>Syrniki Interactive Tracker</title>
     <style>
         :root {
-            --gold: #FFD700;
-            --blue: #6366f1;
-            --green: #22c55e;
-            --bg: #f3f4f6;
-            --card: #ffffff;
-            --text: #1f2937;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #38bdf8;
+            --gold: #fbbf24;
+            --text: #f1f5f9;
+            --done: #10b981;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            padding: 40px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         .dashboard {
             display: grid;
-            grid-template-columns: 180px repeat(3, 280px); /* Роль + 3 этапа */
-            grid-gap: 20px;
-            background: white;
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-
-        /* Специальный стиль для Этапа -1 */
-        .pre-work {
-            grid-column: 2 / 5;
-            background: linear-gradient(90deg, #fff9e6, #fff);
-            border: 2px dashed var(--gold);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
+            grid-template-columns: 140px repeat(3, 1fr);
             gap: 15px;
+            max-width: 1100px;
+            width: 100%;
         }
-
-        .pre-work-badge {
-            background: var(--gold);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        /* Заголовки колонок */
-        .col-header {
-            font-weight: 800;
+        .header-cell {
             text-align: center;
-            color: var(--blue);
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--bg);
-        }
-
-        /* Роли (левая колонка) */
-        .role {
             font-weight: bold;
+            color: var(--primary);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .role-name {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 20px;
-            color: #6b7280;
-            font-size: 14px;
-            text-transform: uppercase;
+            padding-right: 15px;
+            font-size: 13px;
+            color: #94a3b8;
         }
-
-        /* Карточки задач */
-        .task {
-            background: var(--card);
-            border: 1px solid #e5e7eb;
+        /* ИНТЕРАКТИВНАЯ КАРТОЧКА */
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
             border-radius: 12px;
             padding: 15px;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: all 0.2s ease;
             position: relative;
+            user-select: none;
         }
-
-        .task:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-            border-color: var(--blue);
+        .task-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
-
-        .task h4 {
-            margin: 0 0 8px 0;
-            font-size: 15px;
+        .task-card.completed {
+            border-color: var(--done);
+            background: #064e3b;
+            opacity: 0.8;
         }
-
-        .task p {
-            margin: 0;
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.4;
-        }
-
-        .loop {
-            border-left: 4px solid var(--green);
-        }
-
-        .counter {
+        .task-card.completed::after {
+            content: "✓";
             position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--blue);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
+            top: 8px;
+            right: 12px;
+            color: var(--done);
+            font-weight: bold;
         }
+        .pre-work-zone {
+            grid-column: 2 / 5;
+            background: linear-gradient(90deg, #422006, #1e293b);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .pre-work-zone.completed { border-color: var(--done); background: #064e3b; }
+        
+        h4 { margin: 0 0 5px 0; font-size: 14px; }
+        p { margin: 0; font-size: 12px; color: #94a3b8; }
+        .footer { margin-top: 30px; color: #475569; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <h1 style="margin-bottom: 10px;">Architecture of Perfect Breakfast</h1>
-    <p style="margin-bottom: 30px; color: #6b7280;">Процесс приготовления сырников на 3 персоны</p>
+    <h1 style="color: var(--primary)">Syrniki OS v2.0</h1>
+    <p style="margin-bottom: 30px">Кликай на карточки по мере выполнения этапов</p>
 
     <div class="dashboard">
-        <div class="role"></div>
-        <div class="col-header">ПОДГОТОВКА</div>
-        <div class="col-header">ПРОИЗВОДСТВО</div>
-        <div class="col-header">ФИНАЛИЗАЦИЯ</div>
+        <div class="role-name"></div>
+        <div class="header-cell">Подготовка</div>
+        <div class="header-cell">Продакшн</div>
+        <div class="header-cell">Финал</div>
 
-        <div class="role">Pre-Work</div>
-        <div class="pre-work">
-            <span class="pre-work-badge">STAGE -1</span>
-            <div>
-                <strong>Дегидратация и Протирка:</strong> Творог через сито. Убираем лишнюю влагу для идеальной плотности.
-            </div>
+        <div class="role-name" style="color: var(--gold)">Tech Debt</div>
+        <div class="pre-work-zone" onclick="toggleTask(this)">
+            <h4 style="color: var(--gold)">STAGE -1: Дегидратация (Critical)</h4>
+            <p>Творог протерт, лишняя сыворотка удалена. База для идеальной текстуры готова.</p>
         </div>
 
-        <div class="role">Бизнес (Семья)</div>
-        <div class="task">
-            <h4>ТЗ на вкус</h4>
-            <p>Выбор добавок (ягоды, соусы) и проверка наличия всех 500г творога.</p>
+        <div class="role-name">Заказчик</div>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>ТЗ / Соусы</h4>
+            <p>Сметану, ягоды и мед достать из холодильника заранее.</p>
         </div>
-        <div class="task" style="opacity: 0.3;">
-            <p>Ожидание...</p>
-        </div>
-        <div class="task">
-            <h4>Дегустация</h4>
-            <p>Приемка готовых "шайб". Контроль температуры подачи.</p>
+        <div class="task-card" style="visibility: hidden"></div>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>UAT (Приемка)</h4>
+            <p>Проверка хруста корочки и консистенции центра.</p>
         </div>
 
-        <div class="role">Шеф (Менеджер)</div>
-        <div class="task">
-            <h4>Калибровка</h4>
-            <p>Контроль веса каждой заготовки (ровно 70г). Использование весов.</p>
+        <div class="role-name">Шеф</div>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>Весовой контроль</h4>
+            <p>Масса разделена на равные части по 70г. Стакан подготовлен.</p>
         </div>
-        <div class="task loop">
-            <div class="counter">↺</div>
-            <h4>Петля качества</h4>
-            <p>Тестовая жарка 1 шт. Проверка структуры. Если "плывет" — коррекция муки.</p>
+        <div class="task-card" onclick="toggleTask(this)" style="border-left: 4px solid var(--done)">
+            <h4>Loop: Пробник</h4>
+            <p>Один малый сырник обжарен. Коррекция сахара/муки выполнена.</p>
         </div>
-        <div class="task">
-            <h4>Плейтинг</h4>
-            <p>Дизайн тарелки. Добавление пудры через ситечко.</p>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>Сервировка</h4>
+            <p>Финальная композиция. Пудра, мята, эстетика.</p>
         </div>
 
-        <div class="role">Повар (Система)</div>
-        <div class="task">
-            <h4>Замес теста</h4>
-            <p>Соединение желтков, пудры и творога. Формовка стаканом.</p>
+        <div class="role-name">Повар</div>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>Сборка лота</h4>
+            <p>Замес произведен. Сформированы ровные "шайбы" под стаканом.</p>
         </div>
-        <div class="task">
-            <h4>Heat Ops</h4>
-            <p>Жарка до корочки + 5 мин в духовке (180°C) для пышности.</p>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>Deployment</h4>
+            <p>Обжарка 2+2 мин. Запекание в печи 5 мин (180°C).</p>
         </div>
-        <div class="task">
-            <h4>Cleanup</h4>
-            <p>Удаление муки с рабочих поверхностей.</p>
+        <div class="task-card" onclick="toggleTask(this)">
+            <h4>Clean Log</h4>
+            <p>Рабочая зона очищена от муки. Посуда в мойке.</p>
         </div>
     </div>
 
+    <div class="footer">Created by Senior Business Architect AI | 2026</div>
+
+    <script>
+        function toggleTask(element) {
+            element.classList.toggle('completed');
+        }
+    </script>
 </body>
 </html>
-
