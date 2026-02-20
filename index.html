@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Syrniki Production Dashboard</title>
+    <style>
+        :root {
+            --gold: #FFD700;
+            --blue: #6366f1;
+            --green: #22c55e;
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 180px repeat(3, 280px); /* Роль + 3 этапа */
+            grid-gap: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        /* Специальный стиль для Этапа -1 */
+        .pre-work {
+            grid-column: 2 / 5;
+            background: linear-gradient(90deg, #fff9e6, #fff);
+            border: 2px dashed var(--gold);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pre-work-badge {
+            background: var(--gold);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Заголовки колонок */
+        .col-header {
+            font-weight: 800;
+            text-align: center;
+            color: var(--blue);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bg);
+        }
+
+        /* Роли (левая колонка) */
+        .role {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+            color: #6b7280;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Карточки задач */
+        .task {
+            background: var(--card);
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .task:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            border-color: var(--blue);
+        }
+
+        .task h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+        }
+
+        .task p {
+            margin: 0;
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .loop {
+            border-left: 4px solid var(--green);
+        }
+
+        .counter {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--blue);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="margin-bottom: 10px;">Architecture of Perfect Breakfast</h1>
+    <p style="margin-bottom: 30px; color: #6b7280;">Процесс приготовления сырников на 3 персоны</p>
+
+    <div class="dashboard">
+        <div class="role"></div>
+        <div class="col-header">ПОДГОТОВКА</div>
+        <div class="col-header">ПРОИЗВОДСТВО</div>
+        <div class="col-header">ФИНАЛИЗАЦИЯ</div>
+
+        <div class="role">Pre-Work</div>
+        <div class="pre-work">
+            <span class="pre-work-badge">STAGE -1</span>
+            <div>
+                <strong>Дегидратация и Протирка:</strong> Творог через сито. Убираем лишнюю влагу для идеальной плотности.
+            </div>
+        </div>
+
+        <div class="role">Бизнес (Семья)</div>
+        <div class="task">
+            <h4>ТЗ на вкус</h4>
+            <p>Выбор добавок (ягоды, соусы) и проверка наличия всех 500г творога.</p>
+        </div>
+        <div class="task" style="opacity: 0.3;">
+            <p>Ожидание...</p>
+        </div>
+        <div class="task">
+            <h4>Дегустация</h4>
+            <p>Приемка готовых "шайб". Контроль температуры подачи.</p>
+        </div>
+
+        <div class="role">Шеф (Менеджер)</div>
+        <div class="task">
+            <h4>Калибровка</h4>
+            <p>Контроль веса каждой заготовки (ровно 70г). Использование весов.</p>
+        </div>
+        <div class="task loop">
+            <div class="counter">↺</div>
+            <h4>Петля качества</h4>
+            <p>Тестовая жарка 1 шт. Проверка структуры. Если "плывет" — коррекция муки.</p>
+        </div>
+        <div class="task">
+            <h4>Плейтинг</h4>
+            <p>Дизайн тарелки. Добавление пудры через ситечко.</p>
+        </div>
+
+        <div class="role">Повар (Система)</div>
+        <div class="task">
+            <h4>Замес теста</h4>
+            <p>Соединение желтков, пудры и творога. Формовка стаканом.</p>
+        </div>
+        <div class="task">
+            <h4>Heat Ops</h4>
+            <p>Жарка до корочки + 5 мин в духовке (180°C) для пышности.</p>
+        </div>
+        <div class="task">
+            <h4>Cleanup</h4>
+            <p>Удаление муки с рабочих поверхностей.</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
