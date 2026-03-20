@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Breakfast Management System</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #38bdf8;
+            --syrniki: #6366f1;
+            --pancakes: #f59e0b;
+            --text: #f1f5f9;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .hub-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .choice-card {
+            background: var(--card-bg);
+            border: 2px solid #334155;
+            border-radius: 24px;
+            width: 300px;
+            padding: 40px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .choice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .choice-card.syrniki:hover { border-color: var(--syrniki); }
+        .choice-card.pancakes:hover { border-color: var(--pancakes); }
+
+        .icon { font-size: 60px; margin-bottom: 20px; }
+        h2 { margin: 10px 0; font-size: 24px; }
+        p { color: #94a3b8; font-size: 14px; line-height: 1.5; }
+        
+        .badge {
+            background: #334155;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="badge" style="color: var(--primary)">Production Environment</div>
+    <h1 style="font-size: 32px; margin-bottom: 0;">Breakfast OS v1.0</h1>
+    <p>Выберите тип производственного конвейера на сегодня:</p>
+
+    <div class="hub-container">
+        <a href="syrniki.html" class="choice-card syrniki">
+            <div class="icon">🥞</div>
+            <div class="badge" style="color: var(--syrniki)">Boutique Manufacturing</div>
+            <h2>Сырники</h2>
+            <p>Прецизионная формовка, творожная основа, запекание в печи.</p>
+        </a>
+
+        <a href="pancakes.html" class="choice-card pancakes">
+            <div class="icon">🍳</div>
+            <div class="badge" style="color: var(--pancakes)">Continuous Delivery</div>
+            <h2>Блинчики</h2>
+            <p>Высокоскоростная жарка, гидратация теста, кружевной релиз.</p>
+        </a>
+    </div>
+
+    <div style="margin-top: 50px; color: #475569; font-size: 12px;">
+        System Status: Ready to cook | 2026 Build
+    </div>
+
+</body>
+</html>
