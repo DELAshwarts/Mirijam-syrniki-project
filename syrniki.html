@@ -21,6 +21,23 @@
             flex-direction: column;
             align-items: center;
         }
+        
+        /* КНОПКА "НАЗАД" */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
         .dashboard {
             display: grid;
             grid-template-columns: 140px repeat(3, 1fr);
@@ -45,7 +62,6 @@
             font-size: 13px;
             color: #94a3b8;
         }
-        /* ИНТЕРАКТИВНАЯ КАРТОЧКА */
         .task-card {
             background: var(--card-bg);
             border: 1px solid #334155;
@@ -56,23 +72,8 @@
             position: relative;
             user-select: none;
         }
-        .task-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-        .task-card.completed {
-            border-color: var(--done);
-            background: #064e3b;
-            opacity: 0.8;
-        }
-        .task-card.completed::after {
-            content: "✓";
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            color: var(--done);
-            font-weight: bold;
-        }
+        .task-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .task-card.completed { border-color: var(--done); background: #064e3b; opacity: 0.8; }
         .pre-work-zone {
             grid-column: 2 / 5;
             background: linear-gradient(90deg, #422006, #1e293b);
@@ -82,16 +83,15 @@
             margin-bottom: 10px;
             cursor: pointer;
         }
-        .pre-work-zone.completed { border-color: var(--done); background: #064e3b; }
-        
         h4 { margin: 0 0 5px 0; font-size: 14px; }
         p { margin: 0; font-size: 12px; color: #94a3b8; }
-        .footer { margin-top: 30px; color: #475569; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <h1 style="color: var(--primary)">Syrniki OS v2.0</h1>
+    <a href="index.html" class="back-btn">← Back to Menu</a>
+
+    <h1 style="color: var(--primary); margin-top: 40px;">Syrniki OS v2.0</h1>
     <p style="margin-bottom: 30px">Кликай на карточки по мере выполнения этапов</p>
 
     <div class="dashboard">
@@ -101,57 +101,50 @@
         <div class="header-cell">Финал</div>
 
         <div class="role-name" style="color: var(--gold)">Tech Debt</div>
-        <div class="pre-work-zone" onclick="toggleTask(this)">
+        <div class="pre-work-zone" onclick="this.classList.toggle('completed')">
             <h4 style="color: var(--gold)">STAGE -1: Дегидратация (Critical)</h4>
             <p>Творог протерт, лишняя сыворотка удалена. База для идеальной текстуры готова.</p>
         </div>
 
         <div class="role-name">Заказчик</div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>ТЗ / Соусы</h4>
             <p>Сметану, ягоды и мед достать из холодильника заранее.</p>
         </div>
         <div class="task-card" style="visibility: hidden"></div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>UAT (Приемка)</h4>
             <p>Проверка хруста корочки и консистенции центра.</p>
         </div>
 
         <div class="role-name">Шеф</div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>Весовой контроль</h4>
             <p>Масса разделена на равные части по 70г. Стакан подготовлен.</p>
         </div>
-        <div class="task-card" onclick="toggleTask(this)" style="border-left: 4px solid var(--done)">
+        <div class="task-card" onclick="this.classList.toggle('completed')" style="border-left: 4px solid var(--done)">
             <h4>Loop: Пробник</h4>
             <p>Один малый сырник обжарен. Коррекция сахара/муки выполнена.</p>
         </div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>Сервировка</h4>
             <p>Финальная композиция. Пудра, мята, эстетика.</p>
         </div>
 
         <div class="role-name">Повар</div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>Сборка лота</h4>
             <p>Замес произведен. Сформированы ровные "шайбы" под стаканом.</p>
         </div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>Deployment</h4>
             <p>Обжарка 2+2 мин. Запекание в печи 5 мин (180°C).</p>
         </div>
-        <div class="task-card" onclick="toggleTask(this)">
+        <div class="task-card" onclick="this.classList.toggle('completed')">
             <h4>Clean Log</h4>
             <p>Рабочая зона очищена от муки. Посуда в мойке.</p>
         </div>
     </div>
 
-    <div class="footer">Created by Senior Business Architect AI | 2026</div>
-
-    <script>
-        function toggleTask(element) {
-            element.classList.toggle('completed');
-        }
-    </script>
 </body>
 </html>
