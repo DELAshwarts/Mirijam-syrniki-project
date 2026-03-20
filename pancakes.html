@@ -21,6 +21,23 @@
             flex-direction: column;
             align-items: center;
         }
+
+        /* КНОПКА "НАЗАД" */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
         .dashboard {
             display: grid;
             grid-template-columns: 140px repeat(3, 1fr);
@@ -58,9 +75,9 @@
         .task-card.completed { border-color: var(--done); background: #064e3b; opacity: 0.8; }
         
         .timer-btn {
-            background: var(--primary);
-            border: none;
-            color: #000;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--primary);
             padding: 5px 10px;
             border-radius: 6px;
             font-weight: bold;
@@ -90,7 +107,9 @@
 </head>
 <body>
 
-    <h1 style="color: var(--primary)">Pancake Pipeline v1.0</h1>
+    <a href="index.html" class="back-btn">← Back to Menu</a>
+
+    <h1 style="color: var(--primary); margin-top: 40px;">Pancake Pipeline v1.0</h1>
     <div id="counter-display">Блинов в стеке: <span id="count">0</span></div>
 
     <div class="dashboard">
