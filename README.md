@@ -9,11 +9,11 @@
 
 [
   <img src="https://img.shields.io/badge/ЗАПУСТИТЬ-СЫРНИКИ%20v2.0-blue?style=for-the-badge&logo=codepen&logoColor=white" alt="Запуск Сырников" />
-](https://твой_логин.github.io/имя_репозитория/index.html)
+](https://delashwarts.github.io/Mirijam-syrniki-project/index.html)
 
 [
   <img src="https://img.shields.io/badge/ЗАПУСТИТЬ-БЛИНЧИКИ%20v1.0-orange?style=for-the-badge&logo=testing-library&logoColor=white" alt="Запуск Блинчиков" />
-](https://твой_логин.github.io/имя_репозитория/pancakes.html)
+](https://delashwarts.github.io/Mirijam-syrniki-project/pancakes.html)
 
 ---
 
