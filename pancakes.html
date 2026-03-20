@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Pancakes Continuous Delivery</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #f59e0b; /* Цвет золотистого блина */
+            --accent: #ec4899;
+            --text: #f1f5f9;
+            --done: #10b981;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 140px repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1100px;
+            width: 100%;
+        }
+        .header-cell {
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+        .role-name {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .task-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .task-card.completed { border-color: var(--done); background: #064e3b; opacity: 0.8; }
+        
+        .timer-btn {
+            background: var(--primary);
+            border: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .pre-work-zone {
+            grid-column: 2 / 5;
+            background: linear-gradient(90deg, #451a03, #1e293b);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        h4 { margin: 0 0 5px 0; font-size: 14px; color: var(--primary); }
+        p { margin: 0; font-size: 12px; color: #94a3b8; }
+        
+        #counter-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="color: var(--primary)">Pancake Pipeline v1.0</h1>
+    <div id="counter-display">Блинов в стеке: <span id="count">0</span></div>
+
+    <div class="dashboard">
+        <div class="role-name"></div>
+        <div class="header-cell">Pipeline Start</div>
+        <div class="header-cell">Iteration</div>
+        <div class="header-cell">Release</div>
+
+        <div class="role-name" style="color: var(--primary)">Tech Design</div>
+        <div class="pre-work-zone" onclick="this.classList.toggle('completed')">
+            <h4>STAGE -1: Гидратация клейковины (Resting)</h4>
+            <p>Тесто замешано и отдыхает 20 минут. Удаление комочков и стабилизация вязкости.</p>
+            <button class="timer-btn" onclick="startTimer(this)">Запустить таймер (20м)</button>
+        </div>
+
+        <div class="role-name">Бизнес</div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Выбор начинок</h4>
+            <p>Сладкий сценарий (сгущенка) vs Соленый (рыба/сыр).</p>
+        </div>
+        <div class="task-card" style="visibility: hidden"></div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Feedback Loop</h4>
+            <p>Сбор отзывов по толщине и дырочкам.</p>
+        </div>
+
+        <div class="role-name">Менеджер</div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Контроль консистенции</h4>
+            <p>Добавление кипятка (для дырочек) или муки (для плотности).</p>
+        </div>
+        <div class="task-card" style="border-left: 4px solid var(--accent)">
+            <h4>First Deployment</h4>
+            <p>Жарка пробного блина. Проверка соли и сахара.</p>
+        </div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Стэкирование</h4>
+            <p>Сортировка по готовности. Смазывание сливочным маслом.</p>
+        </div>
+
+        <div class="role-name">Повар</div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Batch Mix</h4>
+            <p>Яйца + Молоко + Мука. Интенсивное перемешивание венчиком.</p>
+        </div>
+        <div class="task-card" onclick="addPancake()">
+            <h4 style="color: #fff">🔥 ЖАРКА (КЛИК!)</h4>
+            <p>Нажми сюда за каждый готовый блин в стопке.</p>
+        </div>
+        <div class="task-card" onclick="this.classList.toggle('completed')">
+            <h4>Hot Fix</h4>
+            <p>Регулировка огня под сковородой. Очистка от гари.</p>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+        function addPancake() {
+            count++;
+            document.getElementById('count').innerText = count;
+        }
+
+        function startTimer(btn) {
+            let time = 20 * 60;
+            btn.disabled = true;
+            const interval = setInterval(() => {
+                let m = Math.floor(time / 60);
+                let s = time % 60;
+                btn.innerText = `Ждем: ${m}:${s < 10 ? '0' : ''}${s}`;
+                if (time <= 0) {
+                    clearInterval(interval);
+                    btn.innerText = "READY!";
+                    btn.style.background = "#10b981";
+                }
+                time--;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
